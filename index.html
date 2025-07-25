@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PathAIde - AI-Driven Career Support</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            color: white;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .slide-section {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 60px;
+            margin-bottom: 60px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .slide-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.15);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #6366f1, #8b5cf6);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            font-size: 24px;
+        }
+
+        .brand-name {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .section-title {
+            font-size: clamp(36px, 6vw, 72px);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            font-size: 20px;
+            color: #94a3b8;
+            margin-bottom: 40px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tagline {
+            font-size: 28px;
+            color: #94a3b8;
+            margin-bottom: 0;
+            font-weight: 400;
+            text-transform: none;
+            letter-spacing: normal;
+            font-style: italic;
+        }
+
+        .content-list {
+            list-style: none;
+            margin: 30px 0;
+        }
+
+        .content-list li {
+            padding: 20px 0;
+            font-size: 18px;
+            line-height: 1.7;
+            border-left: 4px solid #6366f1;
+            padding-left: 30px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .content-list li:hover {
+            border-left-color: #8b5cf6;
+            transform: translateX(10px);
+            background: rgba(99, 102, 241, 0.05);
+            border-radius: 0 12px 12px 0;
+            padding-right: 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(99, 102, 241, 0.2);
+            border-color: rgba(99, 102, 241, 0.3);
+        }
+
+        .stat-number {
+            font-size: 42px;
+            font-weight: 800;
+            color: #6366f1;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            color: #e2e8f0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .stat-description {
+            font-size: 14px;
+            color: #94a3b8;
+            line-height: 1.5;
+        }
+
+        .feature-table-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 40px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .feature-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .feature-table th {
+            background: rgba(99, 102, 241, 0.15);
+            padding: 25px;
+            text-align: left;
+            font-weight: 700;
+            font-size: 18px;
+            border-bottom: 2px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .feature-table td {
+            padding: 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 16px;
+        }
+
+        .feature-table tr:hover {
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .feature-table td:first-child {
+            font-weight: 600;
+            color: #a5b4fc;
+        }
+
+        .competitive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .competitor-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .competitor-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(99, 102, 241, 0.3);
+            box-shadow: 0 15px 30px rgba(99, 102, 241, 0.1);
+        }
+
+        .competitor-name {
+            font-size: 22px;
+            font-weight: 700;
+            color: #6366f1;
+            margin-bottom: 12px;
+        }
+
+        .competitor-focus {
+            color: #94a3b8;
+            font-size: 16px;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .competitor-limitations {
+            color: #f87171;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(139, 92, 246, 0.15) 100%);
+            border: 2px solid rgba(99, 102, 241, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .highlight-text {
+            font-size: 22px;
+            font-weight: 600;
+            line-height: 1.5;
+            color: #e2e8f0;
+        }
+
+        .intro-section {
+            text-align: center;
+            padding: 100px 60px;
+        }
+
+        .intro-section .section-title {
+            font-size: clamp(48px, 10vw, 120px);
+            margin-bottom: 30px;
+        }
+
+        .thank-you-section {
+            text-align: center;
+            padding: 120px 60px;
+        }
+
+        .thank-you-section .section-title {
+            font-size: clamp(60px, 12vw, 150px);
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 768px) {
+            .slide-section {
+                padding: 40px 30px;
+                margin-bottom: 40px;
+            }
+            
+            .section-title {
+                font-size: clamp(28px, 8vw, 48px);
+            }
+            
+            .content-list li {
+                font-size: 16px;
+                padding-left: 20px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .competitive-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .intro-section, .thank-you-section {
+                padding: 60px 30px;
+            }
+        }
+
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+            z-index: 100;
+            transition: width 0.1s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+
+    <div class="container">
+        <!-- Title Section -->
+        <section class="slide-section intro-section">
+            <div class="section-header">
+                <div class="logo">🧠</div>
+                <div class="brand-name">PATHAIDE</div>
+            </div>
+            <h1 class="section-title">PathAIde</h1>
+            <p class="tagline">"AI-Driven Career Support for the Next Generation of Job Seekers"</p>
+        </section>
+
+        <!-- The Problem -->
+        <section class="slide-section">
+            <div class="section-header">
+                <div class="logo">🧠</div>
+                <div class="brand-name">PATHAIDE</div>
+            </div>
+            <h2 class="section-title">The Problem</h2>
+            <p class="section-subtitle">OUTDATED CAREER SUPPORT SYSTEMS</p>
+            <ul class="content-list">
+                <li>Most UK universities rely on one generalist career advisor per school, offering broad guidance that cannot meet the needs of specific job roles.</li>
+                <li>This leads to generic, one-size-fits-all CVs and advice, which are no longer effective in today's job market.</li>
+            </ul>
+        </section>
+
+        <!-- Job Market Changes -->
+        <section class="slide-section">
+            <div class="section-header">
+                <div class="logo">🧠</div>
+                <div class="brand-name">PATHAIDE</div>
+            </div>
+            <h2 class="section-title">The Job Market Has Changed</h2>
+            <ul class="content-list">
+                <li>In 2024, 98.4% of Fortune500 companies used Applicant Tracking Systems (ATS) to screen resumes automatically</li>
+                <li>Approximately 70% of large companies also rely on ATS tools regularly, compared to just about 20% of smaller businesses</li>
+                <li>In the UK context, 67% of HR professionals already use ATS‑style systems to support recruitment processes</li>
+                <li>AI is increasingly integrated into recruitment: from AI-based resume parsing to automated cover letter scoring and video interviewing platforms</li>
+            </ul>
+        </section>
+
+        <!-- Students Losing Trust -->
+        <section class="slide-section">
+            <div class="section-header">
+                <div class="logo">🧠</div>
+                <div class="brand-name">PATHAIDE</div>
+            </div>
+            <h2 class="section-title">Students Are Losing Trust</h2>
+            <ul class="content-list">
+                <li>Many students feel unsupported in applying to specific roles, especially when university advice is too general. They often turn to ChatGPT, LinkedIn hacks, and uncoordinated tools, which can be inefficient and misleading.</li>
+                <li>Recent UK graduate stories report frustration: graduates with strong degrees applying to hundreds of roles are often screened out by automated systems, without human review. This has led to resentment and mental health strain</li>
+                <li>Engagement with university career services is low: surveys from UK institutions show less than 50% student attendance at career service events—even when offered</li>
+                <li>A City of London survey indicates that about 30–40% of students never interact with their institution's career center, revealing limited perceived value</li>
+            </ul>
+        </section>
+
+        <!-- Supporting Data -->
+        <section class="slide-section">
+            <div class="section-header">
+                <div class="logo">🧠</div>
+                <div class="brand-name">PATHAIDE</div>
+            </div>
+            <h2 class="section-title">Supporting Data Summary</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">~98%</div>
+                    <div class="stat-label">ATS Usage</div>
+                    <div class="stat-description">of large global employers use ATS; ~67% usage reported in the UK</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">AI</div>
+                    <div class="stat-label">in Hiring</div>
+                    <div class="stat-description">Recruitment uses AI for resume parsing, letter scoring, and video interviews</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">&lt;50%</div>
+                    <div class="stat-label">Student Engagement</div>
+                    <div class="stat-description">attend career events; ~30–40% have never used university career services</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">😞</div>
+                    <div class="stat-label">Student Sentiment</div>
+                    <div class="stat-description">Graduates feel filtered out by impersonal, automated systems and unsupported</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- What's Changed -->
+        <section class="slide-section">
+            <div class="section-header">
+                <div class="logo">🧠</div>
+                <div class="brand-name">PATHAIDE</div>
+            </div>
+            <h2 class="section-title">What's Changed Since 2022</h2>
+            <ul class="content-list">
+                <li><strong>Mass adoption of AI in recruitment:</strong><br>
+                    • ChatGPT & Gemini for prep<br>
+                    • ATS systems like Greenhouse, Lever, and Workable<br>
+                    • AI-led video interviews by HireVue, Pymetrics, etc.
+                </li>
+                <li><strong>The "One CV for All" model is obsolete.</strong><br>
+                    Each application now demands:<br>
+                    • Tailored resume<br>
+                    • JD-matched cover letter<br>
+                    • Role-specific interview prep
+                </li>
+            </ul>
+        </section>
+
+        <!-- Our Solution -->
+        <section class="slide-section">
+            <div class="section-header">
+                <div class="logo">🧠</div>
+                <div class="brand-name">PATHAIDE</div>
+            </div>
+            <h2 class="section-title">Our Solution</h2>
+            <p class="section-subtitle">A full AI-powered career ecosystem, custom-built for universities and their students.</p>
+            <div class="feature-table-container">
+                <table class="feature-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Benefit for Students</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Resume Builder</td>
+                            <td>Create CVs from scratch using ATS-ready templates</td>
+                        </tr>
+                        <tr>
+                            <td>Resume Optimiser</td>
+                            <td>Tailor CV + Cover Letter to any JD instantly</td>
+                        </tr>
+                        <tr>
+                            <td>Job Tracker</td>
+                            <td>Track applications like a CRM</td>
+                        </tr>
+                        <tr>
+                            <td>AI Interview Simulator</td>
+                            <td>Conduct JD-based mock interviews with feedback</td>
+                        </tr>
+                        <tr>
+                            <td>Job Simulations (Beta)</td>
+                            <td>Experience real job tasks before applying</td>
+                        </tr>
+                        <tr>
+                            <td>1-on-1 Mentorship</td>
+                            <td>Book industry experts for feedback & guidance</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="highlight-box">
+                <p class="highlight-text">Built for university integration, white-labeled or co-branded</p>
+            </div>
+        </section>
+
+        <!-- Market Opportunity -->
+        <section class="slide-section">
+            <div class="section-header">
+                <div class="logo">🧠</div>
+                <div class="brand-name">PATHAIDE</div>
+            </div>
+            <h2 class="section-title">Market Opportunity</h2>
+            <ul class="content-list">
+                <li>160+ universities in the UK</li>
+                <li>~2.75 million higher education students</li>
+                <li>Career services budget per student: ~£50–150/year</li>
+                <li>Estimated SAM: ~£100M (UK universities open to digital career tools)</li>
+                <li>Over 60% of Russell Group universities investing in AI + careers</li>
+            </ul>
+        </section>
+
+        <!-- Research -->
+        <section class="slide-section">
+            <div class="section-header">
+                <div class="logo">🧠</div>
+                <div class="brand-name">PATHAIDE</div>
+            </div>
+            <h2 class="section-title">University & Student Trends</h2>
+            <p class="section-subtitle">(Research)</p>
+            <p style="margin-bottom: 30px; font-size: 18px; color: #94a3b8;">Key research findings according to the Institute of Student Employers (ISE):</p>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">45%</div>
+                    <div class="stat-label">Underprepared</div>
+                    <div class="stat-description">of UK employers report students are "underprepared for interviews"</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">88%</div>
+                    <div class="stat-label">Tailoring Critical</div>
+                    <div class="stat-description">say tailoring applications is critical to success</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">18%</div>
+                    <div class="stat-label">Well Prepared</div>
+                    <div class="stat-description">of students say university career services "prepared them well" for modern recruitment</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">Gen Z</div>
+                    <div class="stat-label">Preference</div>
+                    <div class="stat-description">prefers on-demand, AI-based and personalized tools</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Competitive Landscape -->
+        <section class="slide-section">
+            <div class="section-header">
+                <div class="logo">🧠</div>
+                <div class="brand-name">PATHAIDE</div>
+            </div>
+            <h2 class="section-title">Competitor Landscape</h2>
+            <p class="section-subtitle">(UK B2B)</p>
+            <div class="competitive-grid">
+                <div class="competitor-card">
+                    <div class="competitor-name">VMock</div>
+                    <div class="competitor-focus">Resume scoring</div>
+                    <div class="competitor-limitations">Doesn't tailor CVs to JD, limited UI</div>
+                </div>
+                <div class="competitor-card">
+                    <div class="competitor-name">Graduates First</div>
+                    <div class="competitor-focus">Aptitude & Video Prep</div>
+                    <div class="competitor-limitations">No JD tracking or end-to-end workflow</div>
+                </div>
+                <div class="competitor-card">
+                    <div class="competitor-name">Forage</div>
+                    <div class="competitor-focus">Job simulations</div>
+                    <div class="competitor-limitations">Doesn't support CV building or tracking</div>
+                </div>
+                <div class="competitor-card">
+                    <div class="competitor-name">Handshake</div>
+                    <div class="competitor-focus">Job listings & career events</div>
+                    <div class="competitor-limitations">No AI prep, weak on personalisation</div>
+                </div>
+            </div>
+            <div class="highlight-box">
+                <p class="highlight-text">PathAIde is the only unified platform combining ATS-friendly CV building, JD-level tailoring, AI interview prep, mentorship, and application tracking — built specifically for UK universities</p>
+            </div>
+        </section>
+
+        <!-- Why Now -->
+        <section class="slide-section">
+            <div class="section-header">
+                <div class="logo">🧠</div>
+                <div class="brand-name">PATHAIDE</div>
+            </div>
+            <h2 class="section-title">Why PathAIde Now?</h2>
+            <ul class="content-list">
+                <li>AI in hiring is no longer the future — it's the current standard.</li>
+                <li>UK universities are under pressure to modernize student support.</li>
+                <li>Students demand personalised, efficient solutions.</li>
+                <li>PathAIde offers an end-to-end system with AI built in — not bolted on.</li>
+            </ul>
+        </section>
+
+        <!-- Thank You -->
+        <section class="slide-section thank-you-section">
+            <div class="section-header">
+                <div class="logo">🧠</div>
+                <div class="brand-name">PATHAIDE</div>
+            </div>
+            <h2 class="section-title">THANK YOU</h2>
+        </section>
+    </div>
+
+    <script>
+        // Scroll progress indicator
+        function updateScrollProgress() {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.body.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            document.getElementById('scrollIndicator').style.width = scrollPercent + '%';
+        }
+
+        window.addEventListener('scroll', updateScrollProgress);
+
+        // Add smooth hover effects to cards
+        document.querySelectorAll('.content-list li').forEach((li) => {
+            li.addEventListener('mouseenter', function() {
+                this.style.borderLeftColor = '#8b5cf6';
+                this.style.transform = 'translateX(10px)';
+                this.style.background = 'rgba(99, 102, 241, 0.05)';
+                this.style.borderRadius = '0 12px 12px 0';
+                this.style.paddingRight = '20px';
+            });
+            
+            li.addEventListener('mouseleave', function() {
+                this.style.borderLeftColor = '#6366f1';
+                this.style.transform = 'translateX(0)';
+                this.style.background = 'transparent';
+                this.style.borderRadius = '0';
+                this.style.paddingRight = '0';
+            });
+        });
+
+        // Add entrance animations on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Apply initial styles and observe sections
+        document.querySelectorAll('.slide-section').forEach((section, index) => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+            observer.observe(section);
+        });
+
+        // Initialize first section to be visible
+        document.querySelector('.slide-section').style.opacity = '1';
+        document.querySelector('.slide-section').style.transform = 'translateY(0)';
+    </script>
+</body>
+</html>
